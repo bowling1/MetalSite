@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 
 
 class Review(models.Model):
-    artist = models.CharField(max_length=100, unique=True)
-    album = models.CharField(max_length=100, unique=True)
+    album = models.CharField(max_length=100, unique=False)
+    artist = models.CharField(max_length=100, unique=False)
     content = models.CharField(max_length=150)
     rating = models.DecimalField(max_digits=3, decimal_places=1)
     updated = models.DateTimeField(auto_now_add=True)
@@ -21,25 +21,25 @@ class Subreview(models.Model):
     starter = models.ForeignKey(User, related_name='reviews', on_delete=models.PROTECT)
 
 
-class Board(models.Model):
-    name = models.CharField(max_length=30, unique=True)
-    description = models.CharField(max_length=100)
+# class Board(models.Model):
+#     name = models.CharField(max_length=30, unique=True)
+#     description = models.CharField(max_length=100)
     
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
-class Topic(models.Model):
-    subject = models.CharField(max_length=255)
-    last_updated = models.DateTimeField(auto_now_add=True)
-    board = models.ForeignKey(Board, related_name='topics', on_delete=models.PROTECT)
-    starter = models.ForeignKey(User, related_name='topics', on_delete=models.PROTECT)
+# class Topic(models.Model):
+#     subject = models.CharField(max_length=255)
+#     last_updated = models.DateTimeField(auto_now_add=True)
+#     board = models.ForeignKey(Board, related_name='topics', on_delete=models.PROTECT)
+#     starter = models.ForeignKey(User, related_name='topics', on_delete=models.PROTECT)
 
 
-class Post(models.Model):
-    message = models.TextField(max_length=4000)
-    topic = models.ForeignKey(Topic, related_name='posts', on_delete=models.PROTECT)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(null=True)
-    created_by = models.ForeignKey(User, related_name='posts', on_delete=models.PROTECT)
-    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.PROTECT)
+# class Post(models.Model):
+#     message = models.TextField(max_length=4000)
+#     topic = models.ForeignKey(Topic, related_name='posts', on_delete=models.PROTECT)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(null=True)
+#     created_by = models.ForeignKey(User, related_name='posts', on_delete=models.PROTECT)
+#     updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.PROTECT)
